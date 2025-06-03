@@ -15,7 +15,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - voice_agent_network
+      - mvp_network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U voiceagent -d voiceagent_db"]
       interval: 30s
@@ -31,7 +31,7 @@ services:
     volumes:
       - redis_data:/data
     networks:
-      - voice_agent_network
+      - mvp_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 30s
@@ -54,7 +54,7 @@ services:
       - TWILIO_ACCOUNT_SID=demo-account-sid
       - TWILIO_AUTH_TOKEN=demo-auth-token
       - ENVIRONMENT=development
-      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+
     ports:
       - "8000:8000"
     volumes:
@@ -65,7 +65,7 @@ services:
       redis:
         condition: service_healthy
     networks:
-      - voice_agent_network
+      - mvp_network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -80,18 +80,26 @@ services:
       dockerfile: Dockerfile
     container_name: mvp_frontend
     environment:
+      - NODE_OPTIONS=--max-old-space-size=1024
       - REACT_APP_API_URL=http://localhost:8000/api/v1
       - REACT_APP_ENVIRONMENT=development
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=1000
+      - WATCHPACK_POLLING=true
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/package.json:/app/package.json
+      - ./frontend/tsconfig.json:/app/tsconfig.json
     depends_on:
       - backend
     networks:
-      - voice_agent_network
+      - mvp_network
     restart: unless-stopped
+    mem_limit: 2g
+    mem_reservation: 1g
 
 
 
@@ -106,7 +114,7 @@ services:
     depends_on:
       - postgres
     networks:
-      - voice_agent_network
+      - mvp_network
     profiles:
       - development
 
@@ -117,8 +125,8 @@ volumes:
     driver: local
 
 networks:
-  voice_agent_network:
+  mvp_network:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.20.0.0/16
+        - subnet: 172.28.0.0/16

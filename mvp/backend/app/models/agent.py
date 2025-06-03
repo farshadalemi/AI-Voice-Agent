@@ -79,7 +79,7 @@ class Conversation(Base):
     sentiment_score = Column(String(5))  # Using string for decimal representation
     customer_satisfaction = Column(Integer)  # 1-5 rating
     outcome = Column(String(50))
-    metadata = Column(JSON, default={})
+    conversation_metadata = Column(JSON, default={})
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships

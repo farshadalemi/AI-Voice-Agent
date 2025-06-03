@@ -81,6 +81,57 @@ start.bat
    - API Documentation: http://localhost:8000/docs
    - Database Admin: http://localhost:8080
 
+## 🔐 Login Credentials
+
+### Demo Business Account (Regular User)
+- **Email**: `demo@voiceagent.platform`
+- **Password**: `Demo1234`
+- **Account Type**: Business User
+- **Plan**: Starter (automatically assigned to new registrations)
+
+### Database Admin Access (via Adminer)
+- **URL**: http://localhost:8080 (when adminer service is running)
+- **System**: PostgreSQL
+- **Server**: postgres
+- **Username**: `voiceagent`
+- **Password**: `voiceagent_password`
+- **Database**: `voiceagent_db`
+
+### Account Details
+The demo business account includes:
+- **Business Name**: Demo Business
+- **Industry**: Technology
+- **Phone**: +1234567890
+- **Website**: https://demo.voiceagent.platform
+- **Status**: Active (email verified)
+- **Subscription**: Starter plan with 100 calls/month, 1 agent, 50MB knowledge base
+- **Sample Agent**: None (you can create agents after logging in)
+
+### How to Access
+1. **Frontend Application**: http://localhost:3000
+   - Use the demo credentials above to log in
+   - Navigate through the dashboard, agents, analytics, and settings
+
+2. **Backend API Documentation**: http://localhost:8000/docs
+   - Interactive API documentation (Swagger UI)
+   - Test endpoints directly from the browser
+
+3. **Database Management**: http://localhost:8080
+   - Use the database admin credentials above
+   - View and manage all data directly
+
+### Admin Functions
+Currently, this is an MVP system with a single business model. You can:
+- **Access all data via Adminer** using the database credentials
+- **Use the API directly** via the Swagger documentation at http://localhost:8000/docs
+- **Register new businesses** through the `/api/v1/auth/register` endpoint
+
+### Notes
+- The system automatically assigns new registrations to the "Starter" plan
+- Email verification is auto-enabled for MVP purposes
+- All external API keys are set to demo values for testing
+- The JWT secret key should be changed in production environments
+
 ## Project Structure
 
 ```

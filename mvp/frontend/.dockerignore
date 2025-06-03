@@ -1,0 +1,111 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# Testing
+coverage
+
+# Production
+build
+
+# Misc
+.DS_Store
+Thumbs.db
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.vscode
+.idea
+*.swp
+*.swo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
+.env
+.env.test
+.env.production
+
+# parcel cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js
+.next
+out
+
+# Gatsby
+# public  # Commented out - we need public directory for React
+.cache
+# except for the directory containing the cache for the gatsby-source-wordpress plugin
+!wp-content
+
+# TypeScript
+*.tsbuildinfo
+
+# Nuxt.js
+.nuxt
+dist
+
+# Vue.js
+node_modules/.cache
+
+# Vite
+dist
+node_modules/.vite
+
+# React
+build
+
+# Angular
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Cypress
+cypress/videos
+cypress/screenshots
+
+# Storybook
+storybook-static
+
+# Serverless directories
+.serverless
+
+# FuseBox cache
+.fusebox
+
+# DynamoDB Local
+.dynamodb
+
+# Local env files
+.env*.local
+
+# End of https://www.gitignore.io/api/node,react,typescript,parcel,vue,angular,cypress,storybook,serverless,dynamodblocal,fusebox,docker
+
+# Custom ignores
+!.env
+!.env.development
+!.env.production

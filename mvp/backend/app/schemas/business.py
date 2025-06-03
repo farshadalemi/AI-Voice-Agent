@@ -2,8 +2,8 @@
 Pydantic schemas for business-related API requests and responses
 """
 
-from pydantic import BaseModel, EmailStr, Field, validator
-from typing import Optional, Dict, Any, List
+from pydantic import BaseModel, EmailStr, Field, validator, field_validator, model_validator
+from typing import Optional, Dict, Any, List, Union
 from datetime import datetime
 import uuid
 
@@ -64,7 +64,15 @@ class BusinessResponse(BaseModel):
     email_verified: bool
     created_at: datetime
     updated_at: datetime
-    
+
+    @field_validator('id')
+    @classmethod
+    def convert_uuid_to_str(cls, v: Union[str, uuid.UUID]) -> str:
+        """Convert UUID to string"""
+        if isinstance(v, uuid.UUID):
+            return str(v)
+        return v
+
     class Config:
         from_attributes = True
 
@@ -98,7 +106,15 @@ class SubscriptionResponse(BaseModel):
     created_at: datetime
     updated_at: datetime
     plan: Optional[PlanResponse] = None
-    
+
+    @field_validator('id', 'business_id')
+    @classmethod
+    def convert_uuid_to_str(cls, v: Union[str, uuid.UUID]) -> str:
+        """Convert UUID to string"""
+        if isinstance(v, uuid.UUID):
+            return str(v)
+        return v
+
     class Config:
         from_attributes = True
 
@@ -143,7 +159,15 @@ class APIKeyResponse(BaseModel):
     expires_at: Optional[datetime]
     is_active: bool
     created_at: datetime
-    
+
+    @field_validator('id', 'business_id')
+    @classmethod
+    def convert_uuid_to_str(cls, v: Union[str, uuid.UUID]) -> str:
+        """Convert UUID to string"""
+        if isinstance(v, uuid.UUID):
+            return str(v)
+        return v
+
     class Config:
         from_attributes = True
 

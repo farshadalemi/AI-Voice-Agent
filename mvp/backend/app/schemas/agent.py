@@ -2,8 +2,8 @@
 Pydantic schemas for agent-related API requests and responses
 """
 
-from pydantic import BaseModel, Field, validator
-from typing import Optional, Dict, Any, List
+from pydantic import BaseModel, Field, validator, field_validator
+from typing import Optional, Dict, Any, List, Union
 from datetime import datetime
 import uuid
 
@@ -28,10 +28,10 @@ class VoiceSettings(BaseModel):
 
 class PersonalitySettings(BaseModel):
     """Personality settings schema"""
-    tone: str = Field(default="friendly", regex="^(friendly|professional|casual|formal)$")
-    formality: str = Field(default="professional", regex="^(informal|professional|formal)$")
-    empathy_level: str = Field(default="medium", regex="^(low|medium|high)$")
-    response_style: str = Field(default="concise", regex="^(concise|detailed|conversational)$")
+    tone: str = Field(default="friendly", pattern="^(friendly|professional|casual|formal)$")
+    formality: str = Field(default="professional", pattern="^(informal|professional|formal)$")
+    empathy_level: str = Field(default="medium", pattern="^(low|medium|high)$")
+    response_style: str = Field(default="concise", pattern="^(concise|detailed|conversational)$")
     
     class Config:
         schema_extra = {
@@ -81,7 +81,7 @@ class AgentUpdate(BaseModel):
     personality: Optional[PersonalitySettings] = None
     capabilities: Optional[List[str]] = None
     phone_numbers: Optional[List[str]] = None
-    status: Optional[str] = Field(None, regex="^(created|training|ready|error)$")
+    status: Optional[str] = Field(None, pattern="^(created|training|ready|error)$")
 
 
 class AgentResponse(BaseModel):
@@ -98,14 +98,22 @@ class AgentResponse(BaseModel):
     phone_numbers: List[str]
     created_at: datetime
     updated_at: datetime
-    
+
+    @field_validator('id', 'business_id')
+    @classmethod
+    def convert_uuid_to_str(cls, v: Union[str, uuid.UUID]) -> str:
+        """Convert UUID to string"""
+        if isinstance(v, uuid.UUID):
+            return str(v)
+        return v
+
     class Config:
         from_attributes = True
 
 
 class ConversationMessage(BaseModel):
     """Conversation message schema"""
-    speaker: str = Field(..., regex="^(customer|agent)$")
+    speaker: str = Field(..., pattern="^(customer|agent)$")
     message: str
     timestamp: datetime
     intent: Optional[str] = None
@@ -115,14 +123,14 @@ class ConversationMessage(BaseModel):
 class ConversationCreate(BaseModel):
     """Conversation creation request schema"""
     agent_id: str
-    customer_phone: str = Field(..., regex=r'^\+\d{10,15}$')
-    direction: str = Field(..., regex="^(inbound|outbound)$")
+    customer_phone: str = Field(..., pattern=r'^\+\d{10,15}$')
+    direction: str = Field(..., pattern="^(inbound|outbound)$")
     metadata: Optional[Dict[str, Any]] = {}
 
 
 class ConversationUpdate(BaseModel):
     """Conversation update request schema"""
-    status: Optional[str] = Field(None, regex="^(active|completed|transferred|failed)$")
+    status: Optional[str] = Field(None, pattern="^(active|completed|transferred|failed)$")
     end_time: Optional[datetime] = None
     duration_seconds: Optional[int] = Field(None, ge=0)
     transcript: Optional[List[ConversationMessage]] = None
@@ -153,7 +161,15 @@ class ConversationResponse(BaseModel):
     outcome: Optional[str]
     metadata: Dict[str, Any]
     created_at: datetime
-    
+
+    @field_validator('id', 'agent_id', 'business_id')
+    @classmethod
+    def convert_uuid_to_str(cls, v: Union[str, uuid.UUID]) -> str:
+        """Convert UUID to string"""
+        if isinstance(v, uuid.UUID):
+            return str(v)
+        return v
+
     class Config:
         from_attributes = True
 
@@ -161,7 +177,7 @@ class ConversationResponse(BaseModel):
 class SimulateCallRequest(BaseModel):
     """Simulate call request schema"""
     agent_id: str
-    customer_phone: str = Field(..., regex=r'^\+\d{10,15}$')
+    customer_phone: str = Field(..., pattern=r'^\+\d{10,15}$')
     scenario: str = Field(default="customer_inquiry")
     duration_seconds: Optional[int] = Field(default=120, ge=10, le=600)
     customer_message: Optional[str] = Field(default="Hello, I need help with my order")

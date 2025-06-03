@@ -194,8 +194,23 @@ async def get_current_business_info(
     current_business: Business = Depends(get_current_business)
 ):
     """Get current authenticated business information"""
-    
-    return BusinessResponse.from_orm(current_business)
+
+    # Convert UUID to string manually
+    business_data = {
+        "id": str(current_business.id),
+        "name": current_business.name,
+        "email": current_business.email,
+        "industry": current_business.industry,
+        "phone": current_business.phone,
+        "website": current_business.website,
+        "settings": current_business.settings or {},
+        "status": current_business.status,
+        "email_verified": current_business.email_verified,
+        "created_at": current_business.created_at,
+        "updated_at": current_business.updated_at
+    }
+
+    return BusinessResponse(**business_data)
 
 
 @router.post("/verify-email", response_model=SuccessResponse)

@@ -4,13 +4,20 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
+# Set Node.js memory options
+ENV NODE_OPTIONS="--max-old-space-size=1024"
+
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies with optimizations
+RUN npm install --legacy-peer-deps && \
+    npm install --save react react-dom && \
+    npm install --save-dev @babel/core @babel/preset-react && \
+    npm install -g react-scripts && \
+    npm cache clean --force
 
-# Copy source code
+# Copy all frontend files
 COPY . .
 
 # Expose port
