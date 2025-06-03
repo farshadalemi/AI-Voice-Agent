@@ -3,6 +3,14 @@
 ## Overview
 This is a Minimum Viable Product (MVP) version of the AI Voice Agent Platform designed for fundraising and demonstration purposes. It showcases the core functionality and architecture of the full platform.
 
+
+![2025-06-03_14-47-38](https://github.com/user-attachments/assets/42726280-aed3-4582-bd4e-30db3586d97c)
+
+
+![2025-06-03_14-48-00](https://github.com/user-attachments/assets/993e675c-dab2-4bfb-a012-01cd9d769238)
+
+
+
 ## Features Included in MVP
 
 ### Backend (FastAPI)
