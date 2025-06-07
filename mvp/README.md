@@ -78,22 +78,29 @@ start.bat
    # Edit .env with your configuration if needed
    ```
 
-4. **Start with Docker Compose**
+4. **Start with Docker Compose (All Services)**
    ```bash
    docker-compose up --build -d
    ```
 
+   This single command now starts ALL services including:
+   - Core services (PostgreSQL, Redis, Backend, Frontend)
+   - Data Integration services (Data Integration API, Qdrant, MinIO)
+   - Development tools (Adminer)
+
 5. **Access the Application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8000
-   - API Documentation: http://localhost:8000/docs
-   - Database Admin: http://localhost:8080
+   - **Frontend**: http://localhost:3000
+   - **Backend API**: http://localhost:8000/docs
+   - **Data Integration API**: http://localhost:8001/docs
+   - **Vector Database**: http://localhost:6333/dashboard
+   - **File Storage Console**: http://localhost:9001
+   - **Database Admin**: http://localhost:8080
 
 ## 🔐 Login Credentials
 
 ### Demo Business Account (Regular User)
-- **Email**: `demo@voiceagent.platform`
-- **Password**: `Demo1234`
+- **Email**: `demo@voiceagent.platform` , `test@test.com`
+- **Password**: `Demo1234`, `Test@test.com123`
 - **Account Type**: Business User
 - **Plan**: Starter (automatically assigned to new registrations)
 

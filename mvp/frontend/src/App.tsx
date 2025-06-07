@@ -18,6 +18,9 @@ import ConversationDetailsPage from './pages/Conversations/ConversationDetailsPa
 import AnalyticsPage from './pages/Analytics/AnalyticsPage';
 import SettingsPage from './pages/Settings/SettingsPage';
 import PlansPage from './pages/Plans/PlansPage';
+import DataManagementPage from './pages/Data/DataManagementPage';
+import BusinessProfilePage from './pages/Business/BusinessProfilePage';
+import VoiceSimulationPage from './pages/Voice/VoiceSimulationPage';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -113,10 +116,42 @@ const App: React.FC = () => {
           }
         />
         <Route
+          path="/data"
+          element={
+            <ProtectedRoute>
+              <DataManagementPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/conversations"
           element={
             <ProtectedRoute>
               <ConversationsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/conversations/:conversationId"
+          element={
+            <ProtectedRoute>
+              <ConversationDetailsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/voice-simulation"
+          element={
+            <ProtectedRoute>
+              <VoiceSimulationPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/business/profile"
+          element={
+            <ProtectedRoute>
+              <BusinessProfilePage />
             </ProtectedRoute>
           }
         />

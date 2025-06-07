@@ -140,7 +140,7 @@ const LoginPage: React.FC = () => {
 
           <Box textAlign="center" mt={2}>
             <Typography variant="body2" color="textSecondary">
-              Demo Account: demo@voiceagent.platform / demo123
+              Demo Account: test@test.com / Test@test.com123
             </Typography>
           </Box>
         </Paper>

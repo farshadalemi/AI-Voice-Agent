@@ -1,8 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 
-// API base URL
+// API base URLs
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api/v1';
+const DATA_INTEGRATION_API_URL = process.env.REACT_APP_DATA_INTEGRATION_API_URL || 'http://localhost:8001/api/v1';
 
 // Create axios instance
 const api: AxiosInstance = axios.create({

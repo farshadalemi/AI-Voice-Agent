@@ -1,0 +1,11 @@
+id,name,email,phone,company,status,created_date
+1,John Smith,john.smith@email.com,+1-555-0101,Acme Corp,active,2024-01-15
+2,Sarah Johnson,sarah.j@techstart.com,+1-555-0102,TechStart Inc,active,2024-01-14
+3,Mike Wilson,mike.wilson@consulting.com,+1-555-0103,Wilson Consulting,pending,2024-01-13
+4,Emily Davis,emily.davis@retail.com,+1-555-0104,Retail Solutions,active,2024-01-12
+5,David Brown,david.brown@finance.com,+1-555-0105,Finance Pro,inactive,2024-01-11
+6,Lisa Garcia,lisa.garcia@marketing.com,+1-555-0106,Marketing Plus,active,2024-01-10
+7,Tom Anderson,tom.anderson@logistics.com,+1-555-0107,Logistics Hub,active,2024-01-09
+8,Jennifer Lee,jennifer.lee@healthcare.com,+1-555-0108,HealthCare Systems,pending,2024-01-08
+9,Robert Taylor,robert.taylor@education.com,+1-555-0109,Education First,active,2024-01-07
+10,Amanda White,amanda.white@nonprofit.org,+1-555-0110,Community Help,active,2024-01-06

@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Headphones",
+    "category": "Electronics",
+    "price": 99.99,
+    "description": "High-quality wireless headphones with noise cancellation",
+    "in_stock": true,
+    "stock_quantity": 150,
+    "brand": "AudioTech",
+    "features": ["Bluetooth 5.0", "30-hour battery", "Noise cancellation"]
+  },
+  {
+    "id": 2,
+    "name": "Smart Watch",
+    "category": "Electronics",
+    "price": 299.99,
+    "description": "Advanced smartwatch with health monitoring",
+    "in_stock": true,
+    "stock_quantity": 75,
+    "brand": "TechWear",
+    "features": ["Heart rate monitor", "GPS", "Water resistant", "7-day battery"]
+  },
+  {
+    "id": 3,
+    "name": "Laptop Stand",
+    "category": "Accessories",
+    "price": 49.99,
+    "description": "Ergonomic laptop stand for better posture",
+    "in_stock": true,
+    "stock_quantity": 200,
+    "brand": "ErgoDesk",
+    "features": ["Adjustable height", "Aluminum construction", "Portable"]
+  },
+  {
+    "id": 4,
+    "name": "USB-C Hub",
+    "category": "Accessories",
+    "price": 79.99,
+    "description": "Multi-port USB-C hub with HDMI and charging",
+    "in_stock": false,
+    "stock_quantity": 0,
+    "brand": "ConnectPro",
+    "features": ["4K HDMI", "100W charging", "Multiple USB ports"]
+  },
+  {
+    "id": 5,
+    "name": "Mechanical Keyboard",
+    "category": "Peripherals",
+    "price": 129.99,
+    "description": "RGB mechanical keyboard for gaming and productivity",
+    "in_stock": true,
+    "stock_quantity": 50,
+    "brand": "KeyMaster",
+    "features": ["RGB lighting", "Cherry MX switches", "Programmable keys"]
+  }
+]

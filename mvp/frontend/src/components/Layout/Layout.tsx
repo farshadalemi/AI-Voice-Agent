@@ -26,6 +26,9 @@ import {
   Analytics as AnalyticsIcon,
   Settings as SettingsIcon,
   CreditCard as PlansIcon,
+  Storage as DataIcon,
+  PlayArrow as SimulationIcon,
+  Business as BusinessIcon,
   AccountCircle,
   Logout,
 } from '@mui/icons-material';
@@ -67,8 +70,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
     { text: 'Agents', icon: <AgentIcon />, path: '/agents' },
+    { text: 'Data Management', icon: <DataIcon />, path: '/data' },
+    { text: 'Voice Simulation', icon: <SimulationIcon />, path: '/voice-simulation' },
     { text: 'Conversations', icon: <PhoneIcon />, path: '/conversations' },
     { text: 'Analytics', icon: <AnalyticsIcon />, path: '/analytics' },
+    { text: 'Business Profile', icon: <BusinessIcon />, path: '/business/profile' },
     { text: 'Plans', icon: <PlansIcon />, path: '/plans' },
     { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
   ];
