@@ -68,7 +68,7 @@ class DataSourceResponse(BaseModel):
     file_path: Optional[str]
     file_size: Optional[int]
     file_hash: Optional[str]
-    metadata: Dict[str, Any]
+    source_metadata: Dict[str, Any]
     processing_status: str
     processing_error: Optional[str]
     records_count: int
@@ -141,7 +141,7 @@ class ProcessingJobResponse(BaseModel):
     progress: int
     result: Optional[Dict[str, Any]]
     error_message: Optional[str]
-    metadata: Dict[str, Any]
+    job_metadata: Dict[str, Any]
     created_at: datetime
     updated_at: datetime
     completed_at: Optional[datetime]
@@ -159,7 +159,7 @@ class ProcessingJobResponse(BaseModel):
 
 class QueryRequest(BaseModel):
     """Schema for database query request"""
-    query_type: str = Field(..., regex="^(structured|semantic|sql)$")
+    query_type: str = Field(..., pattern="^(structured|semantic|sql)$")
     query: str = Field(..., min_length=1)
     database_id: Optional[str] = None
     limit: int = Field(default=10, ge=1, le=100)
@@ -242,13 +242,7 @@ class HealthCheck(BaseModel):
     dependencies: Dict[str, str]
 
 
-class FileUploadResponse(BaseModel):
-    """Schema for file upload response"""
-    id: str
-    filename: str
-    size: int
-    status: str
-    message: str
+
 
 
 class ProcessingStatus(BaseModel):

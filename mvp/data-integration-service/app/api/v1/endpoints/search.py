@@ -18,6 +18,33 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
+@router.get("/health")
+async def health_check():
+    """Health check endpoint for data integration API"""
+    return {
+        "status": "healthy",
+        "service": "data-integration-api",
+        "version": "1.0.0",
+        "available": True
+    }
+
+
+@router.get("/status")
+async def service_status():
+    """Service status endpoint - no authentication required"""
+    return {
+        "service": "data-integration",
+        "status": "running",
+        "version": "1.0.0",
+        "endpoints": {
+            "databases": "/api/v1/databases",
+            "files": "/api/v1/files",
+            "search": "/api/v1/search",
+            "mcp": "/api/v1/mcp"
+        }
+    }
+
+
 @router.post("/search", response_model=SearchResponse)
 async def search_data(
     search_request: SearchRequest,

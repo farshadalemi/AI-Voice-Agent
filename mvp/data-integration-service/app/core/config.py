@@ -4,7 +4,6 @@ Configuration settings for Data Integration Service
 
 from pydantic_settings import BaseSettings
 from typing import List, Optional
-import os
 
 
 class Settings(BaseSettings):
@@ -39,25 +38,18 @@ class Settings(BaseSettings):
     MCP_SERVER_HOST: str = "0.0.0.0"
     MCP_SERVER_PORT: int = 8002
 
+    # WebSocket
+    WEBSOCKET_PORT: int = 8003
+
     # JWT Settings (shared with main service)
     JWT_SECRET_KEY: str = "your-super-secret-jwt-key-change-in-production"
     JWT_ALGORITHM: str = "HS256"
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
-    # CORS
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:8000"]
-    
-    # MCP Server
-    MCP_SERVER_PORT: int = 8002
-    MCP_SERVER_HOST: str = "0.0.0.0"
-    
-    # WebSocket
-    WEBSOCKET_PORT: int = 8003
-    
     # Security
     SECRET_KEY: str = "your-super-secret-key-change-in-production"
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-    
+
     # CORS
     ALLOWED_ORIGINS: List[str] = [
         "http://localhost:3000",

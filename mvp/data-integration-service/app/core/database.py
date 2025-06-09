@@ -57,12 +57,12 @@ async def init_db():
     """Initialize database tables"""
     try:
         # Import all models to ensure they are registered
-        from app.models.database import BusinessDatabase, DataSource, DataChunk, AgentDatabaseBinding
-        
-        # Create all tables
-        Base.metadata.create_all(bind=engine)
+        from app.models.database import BusinessDatabase, DataSource, DataChunk, AgentDatabaseBinding, ProcessingJob, Base as ModelsBase
+
+        # Create all tables using the models' Base class
+        ModelsBase.metadata.create_all(bind=engine)
         logger.info("Database tables created successfully")
-        
+
     except Exception as e:
         logger.error(f"Failed to create database tables: {e}")
         raise

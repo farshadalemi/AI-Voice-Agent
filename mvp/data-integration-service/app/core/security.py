@@ -36,17 +36,18 @@ async def get_current_business(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ) -> Dict[str, Any]:
     """Get current business from JWT token"""
-    
+
     token = credentials.credentials
     payload = verify_token(token)
-    
-    business_id = payload.get("business_id")
+
+    # Try business_id first (for agent tokens), then fall back to sub (for user tokens)
+    business_id = payload.get("business_id") or payload.get("sub")
     if not business_id:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token: missing business_id"
+            detail="Invalid token: missing business_id or sub"
         )
-    
+
     return {
         "id": business_id,
         "email": payload.get("email"),

@@ -12,8 +12,8 @@ from websockets.server import WebSocketServerProtocol
 import structlog
 
 from app.core.config import settings
-from app.services.database_query import DatabaseQueryService
-from app.services.vector_search import VectorSearchService
+from app.services.database_manager import DatabaseManager
+from app.services.vector_service import VectorService
 
 logger = structlog.get_logger()
 
@@ -24,8 +24,8 @@ class MCPServer:
     def __init__(self):
         self.connections: Dict[str, WebSocketServerProtocol] = {}
         self.agent_bindings: Dict[str, List[str]] = {}  # agent_id -> [database_ids]
-        self.query_service = DatabaseQueryService()
-        self.vector_service = VectorSearchService()
+        self.database_manager = DatabaseManager()
+        self.vector_service = VectorService()
     
     async def start(self):
         """Start the MCP server"""
@@ -140,9 +140,9 @@ class MCPServer:
                 "error": "Missing agent_id or business_id"
             }
         
-        # Get agent's database bindings
-        bindings = await self.query_service.get_agent_bindings(agent_id, business_id)
-        self.agent_bindings[connection_id] = [binding.database_id for binding in bindings]
+        # Get agent's database bindings (simplified for MVP)
+        # TODO: Implement proper agent binding lookup
+        self.agent_bindings[connection_id] = []  # Empty for now
         
         return {
             "type": "auth_success",
@@ -159,7 +159,8 @@ class MCPServer:
             }
         
         database_ids = self.agent_bindings[connection_id]
-        databases = await self.query_service.get_databases_info(database_ids)
+        # TODO: Implement proper database info retrieval
+        databases = []  # Empty for now
         
         return {
             "type": "database_list",
@@ -192,7 +193,8 @@ class MCPServer:
             }
         
         try:
-            results = await self.query_service.execute_structured_query(database_id, query)
+            # TODO: Implement proper structured query execution
+            results = []  # Empty for now
             return {
                 "type": "query_result",
                 "database_id": database_id,
@@ -226,11 +228,8 @@ class MCPServer:
             # Search across all accessible databases if no specific database specified
             database_ids = [database_id] if database_id else self.agent_bindings[connection_id]
             
-            results = await self.vector_service.semantic_search(
-                query_text=query_text,
-                database_ids=database_ids,
-                limit=limit
-            )
+            # TODO: Implement proper semantic search
+            results = []  # Empty for now
             
             return {
                 "type": "search_result",
@@ -260,7 +259,8 @@ class MCPServer:
             }
         
         try:
-            schema = await self.query_service.get_database_schema(database_id)
+            # TODO: Implement proper schema retrieval
+            schema = {}  # Empty for now
             return {
                 "type": "schema_info",
                 "database_id": database_id,
@@ -297,7 +297,8 @@ class MCPServer:
                     "error": "Only SELECT queries are allowed"
                 }
             
-            results = await self.query_service.execute_raw_query(database_id, sql_query)
+            # TODO: Implement proper raw query execution
+            results = []  # Empty for now
             return {
                 "type": "sql_result",
                 "database_id": database_id,

@@ -2,7 +2,7 @@
 Database models for Data Integration Service
 """
 
-from sqlalchemy import Column, String, Integer, DateTime, Text, JSON, ForeignKey, Boolean, LargeBinary
+from sqlalchemy import Column, String, Integer, DateTime, Text, JSON, ForeignKey, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
@@ -50,7 +50,7 @@ class DataSource(Base):
     file_path = Column(String(500))  # For file-based sources
     file_size = Column(Integer)
     file_hash = Column(String(64))  # SHA-256 hash for deduplication
-    metadata = Column(JSON, default={})
+    source_metadata = Column(JSON, default={})
     processing_status = Column(String(20), default="pending")  # pending, processing, completed, error
     processing_error = Column(Text)
     records_count = Column(Integer, default=0)
@@ -75,7 +75,7 @@ class DataChunk(Base):
     business_id = Column(UUID(as_uuid=True), nullable=False, index=True)
     content = Column(Text, nullable=False)
     content_hash = Column(String(64), nullable=False, index=True)  # For deduplication
-    metadata = Column(JSON, default={})
+    chunk_metadata = Column(JSON, default={})
     vector_id = Column(String(100))  # ID in vector database
     chunk_index = Column(Integer, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
@@ -120,7 +120,7 @@ class ProcessingJob(Base):
     progress = Column(Integer, default=0)  # 0-100
     result = Column(JSON)
     error_message = Column(Text)
-    metadata = Column(JSON, default={})
+    job_metadata = Column(JSON, default={})
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     completed_at = Column(DateTime(timezone=True))
